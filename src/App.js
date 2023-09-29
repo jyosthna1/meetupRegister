@@ -31,17 +31,37 @@ const topicsList = [
 
 // Replace your code here
 class App extends Component {
-  state = {activeTopic: topicsList[0].displayText}
+  state = {
+    activeTopic: topicsList[0].displayText,
+    name: '',
+    registerStatus: false,
+  }
 
   onChangeCourseOption = activeCourse => {
     this.setState({activeTopic: activeCourse})
   }
 
+  onChangeName = nameInput => {
+    this.setState({name: nameInput})
+  }
+
+  onChangeRegisterStatus = () => {
+    this.setState({registerStatus: true})
+  }
+
   render() {
-    const {activeTopic} = this.state
+    const {activeTopic, name, registerStatus} = this.state
+
     return (
       <RegisterContext.Provider
-        value={{activeTopic, onChangeCourseOption: this.onChangeCourseOption}}
+        value={{
+          activeTopic,
+          onChangeCourseOption: this.onChangeCourseOption,
+          onChangeName: this.onChangeName,
+          name,
+          registerStatus,
+          onChangeRegisterStatus: this.onChangeRegisterStatus,
+        }}
       >
         <Switch>
           <Route exact path="/" component={Home} />

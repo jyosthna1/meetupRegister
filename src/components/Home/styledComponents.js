@@ -44,3 +44,17 @@ export const MeetupImage = styled.img`
   height: 300px;
   width: 600px;
 `
+export const Name = styled.h1`
+  color: #2563eb;
+  font-family: 'Roboto';
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0px;
+`
+export const Topic = styled.p`
+  font-family: 'Roboto';
+  font-size: 28px;
+  color: #334155;
+  font-weight: 500;
+  margin: 0px;
+`

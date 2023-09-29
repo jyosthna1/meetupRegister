@@ -11,6 +11,7 @@ import {
   Input,
   Select,
   Option,
+  ButtonRegister,
 } from './styledComponents'
 import RegisterContext from '../../context/RegisterContext'
 
@@ -37,14 +38,31 @@ const topicsList = [
   },
 ]
 
-const Register = () => (
+const Register = props => (
   <RegisterContext.Consumer>
     {value => {
-      const {activeTopic, onChangeCourseOption} = value
+      const {
+        activeTopic,
+        onChangeCourseOption,
+        name,
+        onChangeName,
+        onChangeRegisterStatus,
+      } = value
 
       const onChangeCourse = event => {
         onChangeCourseOption(event.target.value)
       }
+
+      const onChangeInput = event => {
+        onChangeName(event.target.value)
+      }
+
+      const onClickRegister = () => {
+        onChangeRegisterStatus()
+        const {history} = props
+        history.replace('/')
+      }
+
       return (
         <RegisterPageComponent>
           <LogoImage
@@ -60,7 +78,13 @@ const Register = () => (
               <RegisterHead>Let us join</RegisterHead>
               <UserNameContainer>
                 <Label htmlFor="name">Name</Label>
-                <Input type="text" placeholder="Your name" id="name" />
+                <Input
+                  type="text"
+                  placeholder="Your name"
+                  id="name"
+                  value={name}
+                  onChange={onChangeInput}
+                />
               </UserNameContainer>
               <UserNameContainer>
                 <Label htmlFor="topics">Topics</Label>
@@ -76,6 +100,9 @@ const Register = () => (
                   ))}
                 </Select>
               </UserNameContainer>
+              <ButtonRegister type="button" onClick={onClickRegister}>
+                Register Now
+              </ButtonRegister>
             </RegisterPageDetailsContainer>
           </RegisterLogoAndUserDetails>
         </RegisterPageComponent>

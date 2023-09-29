@@ -8,7 +8,7 @@ export const LogoImage = styled.img`
   margin-left: 40px;
 `
 export const RegisterLogoAndUserDetails = styled.div`
-  height: 80%;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +23,7 @@ export const RegisterPageDetailsContainer = styled.div`
 `
 export const RegisterHead = styled.h1`
   font-family: 'Roboto';
-  font-size: 30px;
+  font-size: 40px;
   font-weight: bold;
   color: #334155;
 `
@@ -71,4 +71,16 @@ export const Option = styled.option`
   border: 1px solid #cbd5e1;
   border-radius: 5px;
   outline: none;
+`
+export const ButtonRegister = styled.button`
+  border-width: 0px;
+  outline: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #ffffff;
+  background-color: #3b82f6;
+  margin-top: 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  padding: 10px;
 `
