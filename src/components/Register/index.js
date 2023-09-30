@@ -1,4 +1,3 @@
-import {Component} from 'react'
 import {
   RegisterPageComponent,
   LogoImage,
@@ -12,6 +11,7 @@ import {
   Select,
   Option,
   ButtonRegister,
+  ErrorMessage,
 } from './styledComponents'
 import RegisterContext from '../../context/RegisterContext'
 
@@ -47,6 +47,8 @@ const Register = props => (
         name,
         onChangeName,
         onChangeRegisterStatus,
+        onChangeNameStatus,
+        nameFieldEmpty,
       } = value
 
       const onChangeCourse = event => {
@@ -57,10 +59,15 @@ const Register = props => (
         onChangeName(event.target.value)
       }
 
-      const onClickRegister = () => {
-        onChangeRegisterStatus()
-        const {history} = props
-        history.replace('/')
+      const onClickRegister = event => {
+        event.preventDefault()
+        if (name.length === 0) {
+          onChangeNameStatus()
+        } else {
+          onChangeRegisterStatus()
+          const {history} = props
+          history.replace('/')
+        }
       }
 
       return (
@@ -74,10 +81,10 @@ const Register = props => (
               src="https://assets.ccbp.in/frontend/react-js/meetup/website-register-img.png"
               alt="website register"
             />
-            <RegisterPageDetailsContainer>
+            <RegisterPageDetailsContainer onSubmit={onClickRegister}>
               <RegisterHead>Let us join</RegisterHead>
               <UserNameContainer>
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">NAME</Label>
                 <Input
                   type="text"
                   placeholder="Your name"
@@ -87,22 +94,23 @@ const Register = props => (
                 />
               </UserNameContainer>
               <UserNameContainer>
-                <Label htmlFor="topics">Topics</Label>
+                <Label htmlFor="topics">TOPICS</Label>
                 <Select
                   value={activeTopic}
                   id="topics"
                   onChange={onChangeCourse}
                 >
                   {topicsList.map(eachOption => (
-                    <Option key={eachOption.id} value={eachOption.displayText}>
+                    <Option key={eachOption.id} value={eachOption.id}>
                       {eachOption.displayText}
                     </Option>
                   ))}
                 </Select>
               </UserNameContainer>
-              <ButtonRegister type="button" onClick={onClickRegister}>
-                Register Now
-              </ButtonRegister>
+              <ButtonRegister type="submit">Register Now</ButtonRegister>
+              {nameFieldEmpty && (
+                <ErrorMessage>Please enter your name</ErrorMessage>
+              )}
             </RegisterPageDetailsContainer>
           </RegisterLogoAndUserDetails>
         </RegisterPageComponent>

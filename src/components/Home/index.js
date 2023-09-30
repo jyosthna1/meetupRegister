@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 import {
   HomeContainer,
   LogoImage,
@@ -9,17 +10,13 @@ import {
   Name,
   Topic,
 } from './styledComponents'
+
 import RegisterContext from '../../context/RegisterContext'
 
 const Home = props => (
   <RegisterContext.Consumer>
     {value => {
-      const {activeTopic, registerStatus, name} = value
-
-      const onClickRegister = () => {
-        const {history} = props
-        history.replace('/register')
-      }
+      const {registerStatus, name, activeTopicDisplay} = value
 
       return (
         <HomeContainer>
@@ -29,19 +26,19 @@ const Home = props => (
           />
           <RegisterHomeContainer>
             {registerStatus ? (
-              <Name>{name}</Name>
+              <Name>Hello {name}</Name>
             ) : (
               <Heading>Welcome to Meetup</Heading>
             )}
             {registerStatus ? (
-              <Topic>{activeTopic}</Topic>
+              <Topic>Welcome to {activeTopicDisplay}</Topic>
             ) : (
               <Para>Please register for the topic</Para>
             )}
             {!registerStatus && (
-              <Button type="button" onClick={onClickRegister}>
-                Register
-              </Button>
+              <Link to="/register">
+                <Button type="button">Register</Button>
+              </Link>
             )}
 
             <MeetupImage

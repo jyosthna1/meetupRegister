@@ -4,6 +4,7 @@ import {Component} from 'react'
 import Home from './components/Home'
 import Register from './components/Register'
 import RegisterContext from './context/RegisterContext'
+import NotFound from './components/NotFound'
 
 // These are the lists used in the application. You can move them to any component needed.
 const topicsList = [
@@ -32,9 +33,11 @@ const topicsList = [
 // Replace your code here
 class App extends Component {
   state = {
-    activeTopic: topicsList[0].displayText,
+    activeTopic: topicsList[0].id,
+    activeTopicDisplay: topicsList[0].displayText,
     name: '',
     registerStatus: false,
+    nameFieldEmpty: false,
   }
 
   onChangeCourseOption = activeCourse => {
@@ -46,11 +49,30 @@ class App extends Component {
   }
 
   onChangeRegisterStatus = () => {
-    this.setState({registerStatus: true})
+    const {activeTopic} = this.state
+
+    const updatesTopic = topicsList.find(
+      eachItem => eachItem.id === activeTopic,
+    )
+
+    this.setState({
+      activeTopicDisplay: updatesTopic.displayText,
+      registerStatus: true,
+    })
+  }
+
+  onChangeNameStatus = () => {
+    this.setState({nameFieldEmpty: true})
   }
 
   render() {
-    const {activeTopic, name, registerStatus} = this.state
+    const {
+      activeTopic,
+      name,
+      registerStatus,
+      nameFieldEmpty,
+      activeTopicDisplay,
+    } = this.state
 
     return (
       <RegisterContext.Provider
@@ -61,11 +83,15 @@ class App extends Component {
           name,
           registerStatus,
           onChangeRegisterStatus: this.onChangeRegisterStatus,
+          onChangeNameStatus: this.onChangeNameStatus,
+          nameFieldEmpty,
+          activeTopicDisplay,
         }}
       >
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
+          <Route component={NotFound} />
         </Switch>
       </RegisterContext.Provider>
     )

@@ -17,7 +17,7 @@ export const WebsiteRegisterImage = styled.img`
   width: 450px;
   height: 70%;
 `
-export const RegisterPageDetailsContainer = styled.div`
+export const RegisterPageDetailsContainer = styled.form`
   display: flex;
   flex-direction: column;
 `
@@ -76,6 +76,7 @@ export const ButtonRegister = styled.button`
   border-width: 0px;
   outline: none;
   cursor: pointer;
+  font-family: 'Roboto';
   font-size: 13px;
   color: #ffffff;
   background-color: #3b82f6;
@@ -83,4 +84,11 @@ export const ButtonRegister = styled.button`
   border-radius: 6px;
   font-weight: 500;
   padding: 10px;
+`
+export const ErrorMessage = styled.p`
+  font-family: 'Roboto';
+  font-size: 10px;
+  font-weight: 500;
+  color: #ff0b37;
+  padding-left: 20px;
 `
